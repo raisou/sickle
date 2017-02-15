@@ -58,7 +58,8 @@ class BaseOAIIterator(object):
         """Extract and store the resumptionToken from the last response."""
         resumption_token_element = self.oai_response.xml.find(
             './/' + self.sickle.oai_namespace + 'resumptionToken')
-        if resumption_token_element is None:
+        if resumption_token_element is None or\
+                not resumption_token_element.text:
             return None
         token = resumption_token_element.text
         cursor = resumption_token_element.attrib.get('cursor', None)
